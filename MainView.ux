@@ -1,2 +1,33 @@
 <App>
+	<Rectangle>
+		<LinearGradient AngleDegrees="{Angle}">
+			<GradientStop Offset="0" Color="#E55D87" />
+			<GradientStop Offset="1" Color="#5FC3E4" />
+		</LinearGradient>
+		<Rectangle ux:Name="opacity" Fill="White" Opacity="0" Width="85%" Height="55%">
+			<Blur ux:Name="blur" Radius="0" />
+			<Pressed>
+				<Change blur.Radius="25" Duration="0.3" />
+				<Change opacity.Opacity="1" Duration="0.3" />
+				<Change color.Color="White" Duration="0.3" />
+			</Pressed>  
+		</Rectangle>
+		<Rectangle ux:Name="color" Color="#e5e5e5" CornerRadius="10" Width="85%" Height="55%">
+		</Rectangle>
+	</Rectangle>
+	<JavaScript>
+		var Observable = require("FuseJS/Observable");
+		var Angle = Observable(0);
+		function func() {
+			Angle.value = Angle.value + 1;
+			console.log(Angle.value);
+			if (Angle.value == 360) {
+				Angle.value = 0;
+			}
+		}
+		setInterval(func, 50);
+		module.exports = {
+			Angle: Angle
+		};
+	</JavaScript>
 </App>
